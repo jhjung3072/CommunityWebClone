@@ -17,7 +17,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.logging.Logger;
 
 @SpringBootApplication
-@EnableJpaAuditing
 public class SpringitApplication {
 
     public static void main(String[] args) {
