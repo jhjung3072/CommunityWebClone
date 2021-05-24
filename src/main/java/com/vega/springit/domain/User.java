@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @RequiredArgsConstructor
@@ -21,11 +22,11 @@ public class User implements UserDetails {
     private Long id;
 
     @NonNull
-    @Size(min=8, max=20)
+    @Size(min = 8, max = 20)
     @Column(nullable = false, unique = true)
     private String email;
-
     @NonNull
+
     @Column(length = 100)
     private String password;
 
@@ -41,20 +42,17 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public void addRole(Role role){
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+
+    public void addRole(Role role) {
         roles.add(role);
     }
 
-    public void addRoles(Set<Role> roles){
+    public void addRoles(Set<Role> roles) {
         roles.forEach(this::addRole);
-    }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities= new ArrayList<>();
-        for(Role role:roles){
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-        return authorities;
     }
 
     @Override
@@ -74,6 +72,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 }
