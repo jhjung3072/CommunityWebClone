@@ -1,0 +1,16 @@
+package com.vega.springit.domain.validator;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Documented
+@Constraint(validatedBy = PasswordsMatchValidator.class)
+@Target({ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PasswordMatch {
+
+    String message() default "비밀번호가 서로 다릅니다.";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+}
