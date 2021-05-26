@@ -6,12 +6,9 @@
   <title>Your Message Subject or Title</title>
 </head>
 <body>
-<h1>메일 발송h1>
-  <form th:action="@{/mail}" method="post">
-    <input name="address" placeholder="이메일 주소"> <br>
-    <input name="title" placeholder="제목"> <br>
-    <textarea name="message" placeholder="메일 내용을 입력해주세요." cols="60" rows="20"></textarea>
-        <button>발송</button>
-    </form>
+<h1>Springit User Activation</h1>
+<p th:text="|Dear ${user.getFullName()}|">Dear Username</p>
+<p>Thank you for signing up for a free account with us at Springit. Please click on the link below to activate your account.</p>
+<a th:href="${baseURL} + '/activate/' + ${user.getEmail()} + '/' + ${user.getActivationCode()}">Activate Account</a>
 </body>
 </html>

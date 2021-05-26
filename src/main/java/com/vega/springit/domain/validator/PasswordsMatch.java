@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = PasswordsMatchValidator.class)
 @Target({ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PasswordMatch {
+public @interface PasswordsMatch {
 
     String message() default "비밀번호가 서로 다릅니다.";
     Class<?>[] groups() default {};
